@@ -1,0 +1,33 @@
+from datetime import datetime, timedelta
+
+expenses = [
+    {"title": "Food", "amount": 200, "date": "2026-03-14"},
+    {"title": "Bus", "amount": 50, "date": "2026-03-13"},
+    {"title": "Shopping", "amount": 1000, "date": "2026-03-05"},
+    {"title": "Movie", "amount": 300, "date": "2026-03-10"}
+]
+
+today = datetime.today().date()
+
+print("Select Filter")
+print("1. Today")
+print("2. This Week")
+print("3. This Month")
+
+choice = input("Enter choice: ")
+
+for expense in expenses:
+    expense_date = datetime.strptime(expense["date"], "%Y-%m-%d").date()
+
+    if choice == "1" and expense_date == today:
+        print(expense)
+
+    elif choice == "2":
+        start_week = today - timedelta(days=today.weekday())
+        end_week = start_week + timedelta(days=6)
+        if start_week <= expense_date <= end_week:
+            print(expense)
+
+    elif choice == "3":
+        if expense_date.month == today.month:
+            print(expense)
